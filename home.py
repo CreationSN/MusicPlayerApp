@@ -39,7 +39,7 @@ def main(page: ft.Page):
                     ),
                     ft.Text("1 (Remastered)", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
                 ],
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.START,
             ),
             ft.Column(
                 [
@@ -49,7 +49,7 @@ def main(page: ft.Page):
                     ),
                     ft.Text("Lana Del Rey", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
                 ],
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.START,
             ),
             ft.Column(
                 [
@@ -59,7 +59,7 @@ def main(page: ft.Page):
                     ),
                     ft.Text("Marvin Gaye", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
                 ],
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.START,
             ),
             ft.Column(
                 [
@@ -69,11 +69,11 @@ def main(page: ft.Page):
                     ),
                     ft.Text("Indie Pop", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
                 ],
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.START,
             ),
         ],
         alignment=ft.MainAxisAlignment.START,
-        spacing=10,
+        spacing=5,
     )
 
     # Year in Review Section
@@ -93,7 +93,7 @@ def main(page: ft.Page):
                             ft.Text(
                                 "#SPOTIFYWRAPPED", 
                                 color=ft.colors.GREEN_ACCENT_700, 
-                                size=10, 
+                                size=8, 
                                 weight=ft.FontWeight.BOLD
                             ),
                             ft.Text(
@@ -106,7 +106,7 @@ def main(page: ft.Page):
                     ),
                 ],
                 alignment=ft.MainAxisAlignment.START,
-                spacing=10,
+                spacing=5,
             ),
             ft.Row(
                 [
@@ -118,7 +118,7 @@ def main(page: ft.Page):
                             ),
                             ft.Text("Your Top Songs 2021", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
                         ],
-                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        horizontal_alignment=ft.CrossAxisAlignment.START,
                     ),
                     ft.Column(
                         [ 
@@ -128,11 +128,11 @@ def main(page: ft.Page):
                             ),
                             ft.Text("Your Artists", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
                         ],
-                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        horizontal_alignment=ft.CrossAxisAlignment.START,
                     ),  
                 ],
                 alignment=ft.MainAxisAlignment.START,
-                spacing=15,
+                spacing=5,
             ),
         ],
         spacing=8,
