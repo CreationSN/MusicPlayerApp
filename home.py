@@ -2,7 +2,7 @@ import flet as ft
 import os
 
 def main(page: ft.Page):
-    page.title = "Music Player - Home"
+    page.title = "Music Player App - Home"
     page.theme_mode = ft.ThemeMode.DARK
     page.padding = 10
     page.scroll = ft.ScrollMode.AUTO
@@ -31,21 +31,45 @@ def main(page: ft.Page):
     # Recently Played Section
     recently_played_section = ft.Row(
         [
-            ft.Container(
-                content=ft.Image(src=image_path("image-1.png"), fit=ft.ImageFit.COVER),
-                width=70, height=70, padding=5,
+            ft.Column(
+                [
+                    ft.Container(
+                        content=ft.Image(src=image_path("image-1.png"), fit=ft.ImageFit.COVER),
+                        width=70, height=70, padding=5,
+                    ),
+                    ft.Text("1 (Remastered)", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                ],
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            ft.Container(
-                content=ft.Image(src=image_path("image-2.png"), fit=ft.ImageFit.COVER),
-                width=70, height=70, padding=5,
+            ft.Column(
+                [
+                    ft.Container(
+                        content=ft.Image(src=image_path("image-2.png"), fit=ft.ImageFit.COVER),
+                        width=70, height=70, padding=5,
+                    ),
+                    ft.Text("Lana Del Rey", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                ],
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            ft.Container(
-                content=ft.Image(src=image_path("image-3.png"), fit=ft.ImageFit.COVER),
-                width=70, height=70, padding=5,
+            ft.Column(
+                [
+                    ft.Container(
+                        content=ft.Image(src=image_path("image-3.png"), fit=ft.ImageFit.COVER),
+                        width=70, height=70, padding=5,
+                    ),
+                    ft.Text("Marvin Gaye", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                ],
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            ft.Container(
-                content=ft.Image(src=image_path("image-4.png"), fit=ft.ImageFit.COVER),
-                width=70, height=70, padding=5,
+            ft.Column(
+                [
+                    ft.Container(
+                        content=ft.Image(src=image_path("image-4.png"), fit=ft.ImageFit.COVER),
+                        width=70, height=70, padding=5,
+                    ),
+                    ft.Text("Indie Pop", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                ],
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
         ],
         alignment=ft.MainAxisAlignment.START,
@@ -86,14 +110,26 @@ def main(page: ft.Page):
             ),
             ft.Row(
                 [
-                    ft.Container(
-                        content=ft.Image(src=image_path("image-6.png"), fit=ft.ImageFit.COVER),
-                        width=120, height=120, padding=5,
+                    ft.Column(
+                        [
+                            ft.Container(
+                                content=ft.Image(src=image_path("image-6.png"), fit=ft.ImageFit.COVER),
+                                width=120, height=120, padding=5,
+                            ),
+                            ft.Text("Your Top Songs 2021", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                        ],
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     ),
-                    ft.Container(
-                        content=ft.Image(src=image_path("image-7.png"), fit=ft.ImageFit.COVER),
-                        width=120, height=120, padding=5,
-                    ),
+                    ft.Column(
+                        [ 
+                            ft.Container(
+                                content=ft.Image(src=image_path("image-7.png"), fit=ft.ImageFit.COVER),
+                                width=120, height=120, padding=5,
+                            ),
+                            ft.Text("Your Artists", size=12, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                        ],
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    ),  
                 ],
                 alignment=ft.MainAxisAlignment.START,
                 spacing=15,
@@ -112,20 +148,55 @@ def main(page: ft.Page):
             ),
             ft.Row(
                 [
-                    ft.Container(
-                        content=ft.Image(src=image_path("image-8.png"), fit=ft.ImageFit.COVER),
-                        width=70, height=70, padding=5,
+                    ft.Column(
+                        [
+                            ft.Container(
+                                content=ft.Image(src=image_path("image-8.png"), fit=ft.ImageFit.COVER),
+                                width=120, height=120, padding=5,
+                            ),
+                            ft.Text(
+                                "Ed Sheeran, Big Sean, Juice WRLD, Post Malone",
+                                size=10, text_align=ft.TextAlign.CENTER,
+                                max_lines=2,
+                                weight=ft.FontWeight.NORMAL,
+                                width=120,  
+                            ),
+                        ],
+                        horizontal_alignment=ft.CrossAxisAlignment.START,
                     ),
-                    ft.Container(
-                        content=ft.Image(src=image_path("image-9.png"), fit=ft.ImageFit.COVER),
-                        width=70, height=70, padding=5,
+                    ft.Column(
+                        [
+                            ft.Container(
+                                content=ft.Image(src=image_path("image-9.png"), fit=ft.ImageFit.COVER),
+                                width=120, height=120, padding=5,
+                            ),
+                            ft.Text(
+                                "Mitski, Tame Impala, Glass Animals, Charli XCX",
+                                size=10, text_align=ft.TextAlign.CENTER,
+                                max_lines=2,
+                                weight=ft.FontWeight.NORMAL,
+                                width=120,
+                            ),
+                        ],
+                        horizontal_alignment=ft.CrossAxisAlignment.START,
                     ),
-                    ft.Container(
-                        content=ft.Image(src=image_path("image-10.png"), fit=ft.ImageFit.COVER),
-                        width=70, height=70, padding=5,
+                    ft.Column(
+                        [
+                            ft.Container(
+                                content=ft.Image(src=image_path("image-10.png"), fit=ft.ImageFit.COVER),
+                                width=120, height=120, padding=5,
+                            ),
+                            ft.Text(
+                                "Rihanna, Drake, SZA, Tyler, The Creator",
+                                size=10, text_align=ft.TextAlign.CENTER,
+                                max_lines=2,
+                                weight=ft.FontWeight.NORMAL,
+                                width=120,
+                            ),
+                        ],
+                        horizontal_alignment=ft.CrossAxisAlignment.START,
                     ),
                 ],
-                alignment=ft.MainAxisAlignment.START,
                 spacing=10,
             ),
         ],
