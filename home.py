@@ -206,7 +206,7 @@ def main(page: ft.Page):
     # Bottom Navigation Bar
     bottom_navigation = ft.Column(
         [
-            ft.Divider(height=1, thickness=2, color=ft.colors.RED_ACCENT_100),
+            ft.Divider(height=1, thickness=2, color=ft.colors.BLUE),
             ft.Row(
                 [
                     ft.Column(
