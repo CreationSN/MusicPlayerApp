@@ -58,7 +58,8 @@ def main(page: ft.Page):
                 value = current_puzzle[row][col]
                 grid[row][col].content.value = str(value) if value != 0 else ""
                 grid[row][col].content.read_only = value != 0
-                grid[row][col].content.bgcolor = "blue" if value != 0 else "white"
+                grid[row][col].content.bgcolor = "#d0e7ff" if value != 0 else "white"
+
         page.update()
 
     def check_cell():
@@ -104,29 +105,50 @@ def main(page: ft.Page):
         page.update()
 
     def create_cell(row, col):
+        # Add thicker borders for 3x3 sections
+        top_border = 3 if row % 3 == 0 else 1
+        left_border = 3 if col % 3 == 0 else 1
+        bottom_border = 3 if row == 8 else 1
+        right_border = 3 if col == 8 else 1
+
         field = ft.TextField(
             value="",
             text_align="center",
             height=50,
             width=50,
+            border_radius=0,
             border_color="black",
-            content_padding=10,
+            border_width=0,
             read_only=False,
-            color="black"
+            color="black",
+            bgcolor="white",
         )
-        grid[row][col] = ft.Container(content=field)
+        grid[row][col] = ft.Container(
+            content=field,
+            border=ft.border.Border(
+                top=ft.border.BorderSide(width=top_border, color="black"),
+                left=ft.border.BorderSide(width=left_border, color="black"),
+                bottom=ft.border.BorderSide(width=bottom_border, color="black"),
+                right=ft.border.BorderSide(width=right_border, color="black"),
+            ),
+        )
         return grid[row][col]
 
-    sudoku_grid = ft.Column(
-        [
-            ft.Row(
-                [
-                    create_cell(row, col) for col in range(9)
-                ],
-                alignment="center",
-            ) for row in range(9)
-        ],
-        alignment="center",
+    sudoku_grid = ft.Container(
+        content=ft.Column(
+            [
+                ft.Row(
+                    [create_cell(row, col) for col in range(9)],
+                    spacing=0,
+                ) for row in range(9)
+            ],
+            spacing=0,
+            alignment="center",
+        ),
+        border_radius=10,
+        bgcolor="#f0f4ff",
+        padding=10,
+        margin=20,
     )
 
     new_game_button = ft.ElevatedButton(
@@ -156,7 +178,12 @@ def main(page: ft.Page):
     page.add(
         ft.Column(
             [
-                ft.Text("Sudoku Game", size=24, weight="bold"),
+                ft.Container(
+                    content=ft.Text("Sudoku Game", size=30, weight=ft.FontWeight.BOLD, color="white"),
+                    bgcolor="blue",
+                    padding=10,
+                    border_radius=10,
+                ),
                 sudoku_grid,
                 buttons_row,
             ],
