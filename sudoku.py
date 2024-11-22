@@ -29,34 +29,76 @@ def generate_sudoku():
                     return False
         return True
 
-    # Start with an empty board
     board = [[0 for _ in range(9)] for _ in range(9)]
     fill_board(board)
 
-    # Remove random cells to create a puzzle
+    solution = [row[:] for row in board]
+
     for _ in range(40):  # Adjust the number of cells to remove
         row, col = random.randint(0, 8), random.randint(0, 8)
         board[row][col] = 0
-    return board
+    return board, solution
 
 def main(page: ft.Page):
     page.title = "Sudoku Game"
     page.padding = 20
     page.scroll = "adaptive"
 
-    # Create a 9x9 grid for Sudoku
     grid = [[None for _ in range(9)] for _ in range(9)]
     current_puzzle = [[0 for _ in range(9)] for _ in range(9)]
+    solution = [[0 for _ in range(9)] for _ in range(9)]
 
     def load_puzzle():
-        nonlocal current_puzzle
-        current_puzzle = generate_sudoku()
+        nonlocal current_puzzle, solution
+        current_puzzle, solution = generate_sudoku()
         for row in range(9):
             for col in range(9):
                 value = current_puzzle[row][col]
                 grid[row][col].content.value = str(value) if value != 0 else ""
                 grid[row][col].content.read_only = value != 0
                 grid[row][col].content.bgcolor = "lightgray" if value != 0 else "white"
+        page.update()
+
+    def check_cell():
+        for row in range(9):
+            for col in range(9):
+                if not grid[row][col].content.read_only:
+                    try:
+                        user_value = int(grid[row][col].content.value)
+                        if user_value == solution[row][col]:
+                            grid[row][col].content.bgcolor = "lightgreen"
+                        else:
+                            grid[row][col].content.bgcolor = "red"
+                    except ValueError:
+                        grid[row][col].content.bgcolor = "red"
+        page.update()
+
+    def check_solution():
+        for row in range(9):
+            for col in range(9):
+                try:
+                    user_value = int(grid[row][col].content.value)
+                    if user_value != solution[row][col]:
+                        page.dialog = ft.AlertDialog(
+                            title=ft.Text("You Lose!"),
+                            on_dismiss=lambda e: None,
+                        )
+                        page.dialog.open = True
+                        page.update()
+                        return
+                except ValueError:
+                    page.dialog = ft.AlertDialog(
+                        title=ft.Text("You Lose!"),
+                        on_dismiss=lambda e: None,
+                    )
+                    page.dialog.open = True
+                    page.update()
+                    return
+        page.dialog = ft.AlertDialog(
+            title=ft.Text("Congratulations! You Win!"),
+            on_dismiss=lambda e: None,
+        )
+        page.dialog.open = True
         page.update()
 
     def create_cell(row, col):
@@ -72,7 +114,6 @@ def main(page: ft.Page):
         grid[row][col] = ft.Container(content=field)
         return grid[row][col]
 
-    # Build the Sudoku UI
     sudoku_grid = ft.Column(
         [
             ft.Row(
@@ -85,26 +126,38 @@ def main(page: ft.Page):
         horizontal_alignment="center",
     )
 
-    # Add New Game Button
     new_game_button = ft.ElevatedButton(
         text="New Game",
         on_click=lambda e: load_puzzle(),
         width=150,
     )
 
-    # Add everything to the page
+    check_cell_button = ft.ElevatedButton(
+        text="Check Cell",
+        on_click=lambda e: check_cell(),
+        width=150,
+    )
+
+    check_solution_button = ft.ElevatedButton(
+        text="Check Solution",
+        on_click=lambda e: check_solution(),
+        width=150,
+    )
+
     page.add(
         ft.Column(
             [
                 ft.Text("Sudoku Game", size=24, weight="bold"),
                 sudoku_grid,
-                new_game_button,
+                ft.Row(
+                    [new_game_button, check_cell_button, check_solution_button],
+                    alignment="center",
+                ),
             ],
             horizontal_alignment="center",
         )
     )
 
-    # Load the initial puzzle
     load_puzzle()
 
 ft.app(main)
