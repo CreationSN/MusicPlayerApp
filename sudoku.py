@@ -43,6 +43,8 @@ def main(page: ft.Page):
     page.title = "Sudoku Game"
     page.padding = 20
     page.scroll = "adaptive"
+    page.horizontal_alignment = "center"
+    page.vertical_alignment = "center"
 
     grid = [[None for _ in range(9)] for _ in range(9)]
     current_puzzle = [[0 for _ in range(9)] for _ in range(9)]
@@ -119,11 +121,11 @@ def main(page: ft.Page):
             ft.Row(
                 [
                     create_cell(row, col) for col in range(9)
-                ]
+                ],
+                alignment="center",
             ) for row in range(9)
         ],
         alignment="center",
-        horizontal_alignment="center",
     )
 
     new_game_button = ft.ElevatedButton(
@@ -144,16 +146,20 @@ def main(page: ft.Page):
         width=150,
     )
 
+    buttons_row = ft.Row(
+        [new_game_button, check_cell_button, check_solution_button],
+        alignment="center",
+        spacing=20,
+    )
+
     page.add(
         ft.Column(
             [
                 ft.Text("Sudoku Game", size=24, weight="bold"),
                 sudoku_grid,
-                ft.Row(
-                    [new_game_button, check_cell_button, check_solution_button],
-                    alignment="center",
-                ),
+                buttons_row,
             ],
+            alignment="center",
             horizontal_alignment="center",
         )
     )
