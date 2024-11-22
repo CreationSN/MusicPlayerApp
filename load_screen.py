@@ -8,11 +8,11 @@ def main(page: ft.Page):
     page.window_resizable = False  
     page.bgcolor = "black"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    image_path = lambda img: os.path.join(os.getcwd(), "assets/images", img)
+    image_path = "assets/images/musicappicon.png"
 
 
     image=ft.Image(
-        src=image_path("musicappicon.png"), fit=ft.ImageFit.COVER,
+        src=image_path, fit=ft.ImageFit.COVER,
         width=100,
         height=100,
     )
