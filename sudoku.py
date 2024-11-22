@@ -1,7 +1,7 @@
 import flet as ft
 import random
 
-# Sudoku puzzle generator
+
 def generate_sudoku():
     def is_valid(board, row, col, num):
         for i in range(9):
@@ -39,12 +39,15 @@ def generate_sudoku():
         board[row][col] = 0
     return board
 
+
 def main(page: ft.Page):
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.title = "Sudoku Game"
     page.padding = 20
     page.scroll = "adaptive"
+    
 
-    # Create a 9x9 grid for Sudoku
     grid = [[None for _ in range(9)] for _ in range(9)]
     current_puzzle = [[0 for _ in range(9)] for _ in range(9)]
 
@@ -54,57 +57,64 @@ def main(page: ft.Page):
         for row in range(9):
             for col in range(9):
                 value = current_puzzle[row][col]
-                grid[row][col].content.value = str(value) if value != 0 else ""
-                grid[row][col].content.read_only = value != 0
-                grid[row][col].content.bgcolor = "lightgray" if value != 0 else "white"
+                cell = grid[row][col]
+                if value != 0:
+                    cell.content = ft.Text(
+                        value, size=20, weight="bold", color="black"
+                    )
+                    cell.bgcolor = "lightgray"
+                else:
+                    cell.content = ft.TextField(
+                        value="",
+                        text_align="center",
+                        border_color="transparent",
+                        bgcolor="white",
+                    )
         page.update()
 
     def create_cell(row, col):
-        field = ft.TextField(
-            value="",
-            text_align="center",
-            height=50,
+        container = ft.Container(
             width=50,
-            border_color="black",
-            content_padding=10,
-            read_only=False,
+            height=50,
+            border=ft.border.all(1, "black"),
+            alignment=ft.alignment.center,
         )
-        grid[row][col] = ft.Container(content=field)
-        return grid[row][col]
+        grid[row][col] = container
+        return container
 
-    # Build the Sudoku UI
     sudoku_grid = ft.Column(
         [
             ft.Row(
                 [
                     create_cell(row, col) for col in range(9)
-                ]
-            ) for row in range(9)
+                ],
+                alignment="center",
+            )
+            for row in range(9)
         ],
         alignment="center",
-        horizontal_alignment="center",
     )
 
-    # Add New Game Button
     new_game_button = ft.ElevatedButton(
         text="New Game",
         on_click=lambda e: load_puzzle(),
         width=150,
     )
 
-    # Add everything to the page
     page.add(
         ft.Column(
             [
                 ft.Text("Sudoku Game", size=24, weight="bold"),
-                sudoku_grid,
+                ft.Container(content=sudoku_grid, padding=5),
                 new_game_button,
             ],
             horizontal_alignment="center",
+            spacing=20,
         )
     )
 
-    # Load the initial puzzle
     load_puzzle()
 
+
 ft.app(main)
+
