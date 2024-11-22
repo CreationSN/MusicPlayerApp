@@ -47,4 +47,4 @@ def main(page: ft. Page):
     margin=ft.Margin(0, 20, 0, 0), 
 ))
 
-ft.app(main)
+ft.app(main)"
