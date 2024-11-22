@@ -147,8 +147,7 @@ def main(page: ft.Page):
         ),
         border_radius=10,
         bgcolor="#f0f4ff",
-        padding=10,
-        margin=20,
+        padding=ft.padding.only(left=375)
     )
 
     new_game_button = ft.ElevatedButton(
