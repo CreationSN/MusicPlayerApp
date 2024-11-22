@@ -1,7 +1,7 @@
 import flet as ft
 import random
 
-
+# Sudoku puzzle generator
 def generate_sudoku():
     def is_valid(board, row, col, num):
         for i in range(9):
@@ -29,58 +29,93 @@ def generate_sudoku():
                     return False
         return True
 
-    # Start with an empty board
     board = [[0 for _ in range(9)] for _ in range(9)]
     fill_board(board)
 
-    # Remove random cells to create a puzzle
+    solution = [row[:] for row in board]
+
     for _ in range(40):  # Adjust the number of cells to remove
         row, col = random.randint(0, 8), random.randint(0, 8)
         board[row][col] = 0
-    return board
-
+    return board, solution
 
 def main(page: ft.Page):
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.title = "Sudoku Game"
     page.padding = 20
     page.scroll = "adaptive"
-    
+    page.horizontal_alignment = "center"
+    page.vertical_alignment = "center"
 
     grid = [[None for _ in range(9)] for _ in range(9)]
     current_puzzle = [[0 for _ in range(9)] for _ in range(9)]
+    solution = [[0 for _ in range(9)] for _ in range(9)]
 
     def load_puzzle():
-        nonlocal current_puzzle
-        current_puzzle = generate_sudoku()
+        nonlocal current_puzzle, solution
+        current_puzzle, solution = generate_sudoku()
         for row in range(9):
             for col in range(9):
                 value = current_puzzle[row][col]
-                cell = grid[row][col]
-                if value != 0:
-                    cell.content = ft.Text(
-                        value, size=20, weight="bold", color="black"
+                grid[row][col].content.value = str(value) if value != 0 else ""
+                grid[row][col].content.read_only = value != 0
+                grid[row][col].content.bgcolor = "blue" if value != 0 else "white"
+        page.update()
+
+    def check_cell():
+        for row in range(9):
+            for col in range(9):
+                if not grid[row][col].content.read_only:
+                    try:
+                        user_value = int(grid[row][col].content.value)
+                        if user_value == solution[row][col]:
+                            grid[row][col].content.bgcolor = "lightgreen"
+                        else:
+                            grid[row][col].content.bgcolor = "red"
+                    except ValueError:
+                        grid[row][col].content.bgcolor = "red"
+        page.update()
+
+    def check_solution():
+        for row in range(9):
+            for col in range(9):
+                try:
+                    user_value = int(grid[row][col].content.value)
+                    if user_value != solution[row][col]:
+                        page.dialog = ft.AlertDialog(
+                            title=ft.Text("You Lose!"),
+                            on_dismiss=lambda e: None,
+                        )
+                        page.dialog.open = True
+                        page.update()
+                        return
+                except ValueError:
+                    page.dialog = ft.AlertDialog(
+                        title=ft.Text("You Lose!"),
+                        on_dismiss=lambda e: None,
                     )
-                    cell.bgcolor = "lightgray"
-                else:
-                    cell.content = ft.TextField(
-                        value="",
-                        text_align="center",
-                        border_color="transparent",
-                        bgcolor="white",
-                    )
+                    page.dialog.open = True
+                    page.update()
+                    return
+        page.dialog = ft.AlertDialog(
+            title=ft.Text("Congratulations! You Win!"),
+            on_dismiss=lambda e: None,
+        )
+        page.dialog.open = True
         page.update()
 
     def create_cell(row, col):
-        container = ft.Container(
-            width=50,
+        field = ft.TextField(
+            value="",
+            text_align="center",
             height=50,
-            border=ft.border.all(1, "black"),
-            alignment=ft.alignment.center,
+            width=50,
+            border_color="black",
+            content_padding=10,
+            read_only=False,
+            color="black"
         )
-        grid[row][col] = container
-        return container
+        grid[row][col] = ft.Container(content=field)
+        return grid[row][col]
 
     sudoku_grid = ft.Column(
         [
@@ -89,8 +124,7 @@ def main(page: ft.Page):
                     create_cell(row, col) for col in range(9)
                 ],
                 alignment="center",
-            )
-            for row in range(9)
+            ) for row in range(9)
         ],
         alignment="center",
     )
@@ -101,20 +135,36 @@ def main(page: ft.Page):
         width=150,
     )
 
+    check_cell_button = ft.ElevatedButton(
+        text="Check Cell",
+        on_click=lambda e: check_cell(),
+        width=150,
+    )
+
+    check_solution_button = ft.ElevatedButton(
+        text="Check Solution",
+        on_click=lambda e: check_solution(),
+        width=150,
+    )
+
+    buttons_row = ft.Row(
+        [new_game_button, check_cell_button, check_solution_button],
+        alignment="center",
+        spacing=20,
+    )
+
     page.add(
         ft.Column(
             [
                 ft.Text("Sudoku Game", size=24, weight="bold"),
-                ft.Container(content=sudoku_grid, padding=5),
-                new_game_button,
+                sudoku_grid,
+                buttons_row,
             ],
+            alignment="center",
             horizontal_alignment="center",
-            spacing=20,
         )
     )
 
     load_puzzle()
 
-
 ft.app(main)
-
