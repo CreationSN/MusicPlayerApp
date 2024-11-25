@@ -1,4 +1,5 @@
 import flet as ft
+import login
 
 def main(page: ft. Page):
     page.window_width = 360  
@@ -21,7 +22,7 @@ def main(page: ft. Page):
         content=songs,
         #bgcolor="black",
         margin=ft.Margin(30, 200, 30, 0),
-    ))    
+    ))
 
 
     create=ft.ElevatedButton(
@@ -30,7 +31,7 @@ def main(page: ft. Page):
         bgcolor="green",
         width=300,
         height=40,
-        #on_click=lambda _: page.go("/form.result"),
+        on_click=lambda _: page.go("login"),
     ) 
    
     button_row = ft.Column(
@@ -47,4 +48,6 @@ def main(page: ft. Page):
     margin=ft.Margin(0, 20, 0, 0), 
 ))
 
-ft.app(main)"
+ft.app(main)
+
+
