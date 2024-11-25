@@ -9,7 +9,7 @@ def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     image=ft.Image(
-        src=r"MusicPlayerApp\assets\images\musicappicon.png",
+        src=r"assets/images/musicappicon.png",
         width=100,
         height=100,
     )
