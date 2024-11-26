@@ -1,4 +1,5 @@
 import flet as ft
+import os
 
 
 def main(page: ft.Page):
@@ -7,9 +8,11 @@ def main(page: ft.Page):
     page.window_resizable = False  
     page.bgcolor = "black"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    image_path = "assets/images/musicappicon.png"
+
 
     image=ft.Image(
-        src=r"assets/images/musicappicon.png",
+        src=image_path, fit=ft.ImageFit.COVER,
         width=100,
         height=100,
     )
@@ -22,4 +25,5 @@ def main(page: ft.Page):
     ))
 
 
-ft.app(main)
+ft.app(target=main)
+
