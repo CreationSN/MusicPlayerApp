@@ -1,7 +1,6 @@
 import flet as ft
 import random
 
-# Sudoku puzzle generator
 def generate_sudoku():
     def is_valid(board, row, col, num):
         for i in range(9):
@@ -34,7 +33,7 @@ def generate_sudoku():
 
     solution = [row[:] for row in board]
 
-    for _ in range(40):  # Adjust the number of cells to remove
+    for _ in range(40):  
         row, col = random.randint(0, 8), random.randint(0, 8)
         board[row][col] = 0
     return board, solution
@@ -105,7 +104,7 @@ def main(page: ft.Page):
         page.update()
 
     def create_cell(row, col):
-        # Add thicker borders for 3x3 sections
+        
         top_border = 3 if row % 3 == 0 else 1
         left_border = 3 if col % 3 == 0 else 1
         bottom_border = 3 if row == 8 else 1

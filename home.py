@@ -5,6 +5,9 @@ def main(page: ft.Page):
     page.title = "Music Player App - Home"
     page.theme_mode = ft.ThemeMode.DARK
     page.padding = 10
+    page.window_width = 360  
+    page.window_height = 800  
+    page.window_resizable = False 
     page.scroll = ft.ScrollMode.AUTO
     image_path = lambda img: os.path.join(os.getcwd(), "assets/images", img)
 
