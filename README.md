@@ -23,6 +23,9 @@ Browse Music: Navigate through your music library.
 Play Music: Click on a song to start playback.
 Control Playback: Use the play/pause, next/previous buttons, and volume slider.
 
+Here are the files used in the App:
+https://github.com/CreationSN/MusicPlayerApp/tree/main/asset
+
 #Installation of Steps:
 
 If you don't have the felt libary then you need to go to the Cmd throug the window and install this libary using this code step by step:
