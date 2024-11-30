@@ -41,7 +41,8 @@ python main.py
 
 
 #Screen short of app:
-![1](https://github.com/user-attachments/assets/45ff3c4f-ca82-41a6-9b85-216a7876c0ce) ![2](https://github.com/user-attachments/assets/6c1119cd-a93b-4a12-a880-535ff2899bd5) ![3](https://github.com/user-attachments/assets/c888b220-06fa-4bbf-b1db-9688c9d046ca) ![4](https://github.com/user-attachments/assets/1792ee30-6fec-48b3-8976-8edca2081965) ![5](https://github.com/user-attachments/assets/b341c253-9fb7-443a-bd88-8d511aa0b73b)
+![Screenshot 2024-11-30 181834](https://github.com/user-attachments/assets/28e2f4bf-65b6-412d-a2ae-2d3398f1a7b4)
+
 
 #Figma link: https://www.figma.com/design/TqBUufclmvxjtzOzTuC15h/Untitled?node-id=3-2143&t=s4EDNtPBIkHRgfGU-1
 
